@@ -29,6 +29,7 @@
  $string['error'] = 'We have not been able to complete the request. Please contact your site administrator.';
  $string['fallback'] = 'Your Browser was unable to load the terms and conditions in this plage. Please click here to view them externally.';
  $string['id'] = 'Users ID';
+ $string['nopermissions'] = 'You do not currently have permission to access Abintegro, please speak with your site administrator.';
  $string['pluginname'] = 'Abintegro';
  $string['secretkey'] = 'Secret Key';
  $string['secretkeydesc'] = 'Your Secret Key to access the API';

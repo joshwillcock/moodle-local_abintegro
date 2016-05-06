@@ -15,15 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details.
+ * local_abintegro Permissions.
  *
  * @package    local_abintegro
- * @copyright  2016 onwards Josh Willcock {@link http://joshwillcock.co.uk}
+ * @copyright  Josh Willcock
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
-
-$plugin->version   = 2016050601; // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2015111000; // Requires this Moodle version
-$plugin->component = 'local_abintegro'; // Full name of the plugin (used for diagnostics)
+$capabilities = array(
+   'local/abintegro:access' => array(
+      'captype' => 'read',
+      'contextlevel' => CONTEXT_SYSTEM,
+      'archetypes' => array(
+     'user' => CAP_ALLOW,
+     'guest' => CAP_PROHIBIT,
+     'student' => CAP_ALLOW,
+     'teacher' => CAP_ALLOW,
+     'editingteacher' => CAP_ALLOW,
+     'manager' => CAP_ALLOW
+     )
+      )
+   );

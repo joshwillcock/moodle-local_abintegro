@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Fuse Social LMS integration.
+ * Abintegro Auth Token SSO integration.
  *
  * @package    local_abintegro
  * @copyright  2016 Josh Willcock
@@ -31,28 +31,36 @@ $PAGE->set_pagelayout('admin');
 $strheading = get_string('abintegro', 'local_abintegro');
 $PAGE->set_title($strheading);
 $PAGE->set_heading($strheading);
+$system = \context_system::instance();
+$permission = \has_capability('local/abintegro:access', $system, $USER->id);
+if($permission){
 $mform = new agreeterms_form();
-if ($fromform = $mform->get_data()) {
-    $recordtoinsert = new \stdClass;
-    $recordtoinsert->userid = $USER->id;
-    $recordtoinsert->agreed = '1';
-    if($DB->count_records('local_abintegro', array('userid' => $USER->id, 'agreed' => '1')) == 0){
-        $DB->insert_record('local_abintegro', $recordtoinsert);
-    }
-    $connection = new connection;
-    $connection->send();
-} else {
-    $termsagreed = $DB->get_record('local_abintegro', array('userid' => $USER->id, 'agreed' => '1'));
-    if($termsagreed){
+    if ($fromform = $mform->get_data()) {
+        $recordtoinsert = new \stdClass;
+        $recordtoinsert->userid = $USER->id;
+        $recordtoinsert->agreed = '1';
+        if($DB->count_records('local_abintegro', array('userid' => $USER->id, 'agreed' => '1')) == 0){
+            $DB->insert_record('local_abintegro', $recordtoinsert);
+        }
         $connection = new connection;
         $connection->send();
-    }else{
-        echo $OUTPUT->header();
-        $fallback = \html_writer::link('https://www.abintegro.com/Terms-And-Conditions', get_string('fallback', 'local_abintegro'));
-        echo \html_writer::tag('iframe', $fallback, array('width' => '100%', 'height' => '500px', 'src' => 'https://www.abintegro.com/Terms-And-Conditions'));
-        echo  \html_writer::tag('a',get_string('termsdesc','local_abintegro'));
-        $mform->display();
-        echo $OUTPUT->footer();
+    } else {
+        $termsagreed = $DB->get_record('local_abintegro', array('userid' => $USER->id, 'agreed' => '1'));
+        if($termsagreed){
+            $connection = new connection;
+            $connection->send();
+        }else{
+            echo $OUTPUT->header();
+            $fallback = \html_writer::link('https://www.abintegro.com/Terms-And-Conditions', get_string('fallback', 'local_abintegro'));
+            echo \html_writer::tag('iframe', $fallback, array('width' => '100%', 'height' => '500px', 'src' => 'https://www.abintegro.com/Terms-And-Conditions'));
+            echo  \html_writer::tag('a',get_string('termsdesc','local_abintegro'));
+            $mform->display();
+            echo $OUTPUT->footer();
+        }
     }
+}else{
+    echo $OUTPUT->header();
+    echo get_string('nopermissions', 'local_abintegro');
+    echo $OUTPUT->footer();
 }
 ?>
