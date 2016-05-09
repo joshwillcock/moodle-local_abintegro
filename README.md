@@ -33,7 +33,7 @@ I have to rely on the community for testing on other systems.
 
 Requires:
 
-Moodle 2.8+
+Moodle 3.0+
 Postgres / MySQL
 
 Install:
