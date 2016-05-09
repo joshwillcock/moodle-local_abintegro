@@ -27,3 +27,5 @@ defined('MOODLE_INTERNAL') || die();
 $plugin->version   = 2016050601; // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2015111000; // Requires this Moodle version
 $plugin->component = 'local_abintegro'; // Full name of the plugin (used for diagnostics)
+$plugin->maturity = MATURITY_STABLE; // Stable branch ready for production servers
+$plugin->release = 'v3.0-r1'; // First revision for Moodle 3.0+
