@@ -49,7 +49,7 @@ class connection {
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($curl);
         curl_close($curl);
-        if(substr($response,0,8)=="https://"){
+        if(substr($response,0,4)=="http"){
         $url = new \moodle_url($response);
         redirect($url);
         }else{
