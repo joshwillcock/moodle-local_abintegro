@@ -39,8 +39,14 @@ class connection {
         $paramstrings .= '&EmailAddress='.$USER->email;
         $paramstrings .= '&AuthToken='.$authtoken;
         $paramstrings .= '&TermsAgree=true';
-        $paramstrings .= '&FirstName='.str_replace(' ', '&nbsp;', $USER->firstname);
-        $paramstrings .= '&LastName='.str_replace(' ', '&nbsp;', $USER->lastname);
+        $firstname = str_replace(' ', '&nbsp;', $USER->firstname);
+        $firstname = str_replace('?', '', $firstname);
+        $firstname = str_replace('&', '', $firstname);
+        $paramstrings .= '&FirstName='.$firstname;
+        $lastname = str_replace(' ', '&nbsp;', $USER->lastname);
+        $lastname = str_replace('?', '', $lastname);
+        $lastname = str_replace('&', '', $lastname);
+        $paramstrings .= '&LastName='.$lastname;
         $paramstrings .= '&ThemeUniqueId='.$themeid;
         $paramstrings .= '&ReturnFormat=LinkOnly';
         $curl = curl_init();
