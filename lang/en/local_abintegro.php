@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
  $string['abintegro'] = 'Abintegro';
+ $string['abintegro:access'] = 'Access Abintegro';
  $string['agree'] = 'Agree & Continue';
  $string['baseurl'] = 'Base URL';
  $string['baseurldesc'] = 'The Base URL for the Abintegro API';
