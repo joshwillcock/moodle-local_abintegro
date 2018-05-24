@@ -24,13 +24,13 @@ namespace local_abintegro\integration;
 require_once("$CFG->libdir/formslib.php");
 class agreeterms_form extends \moodleform {
     public function definition() {
-        $this->add_action_buttons($cancel = false, $submitlabel = get_string('agree', 'local_abintegro'));
+        $this->add_action_buttons($cancel = false, $submitlabel=get_string('agree', 'local_abintegro'));
     }
 }
 class connection {
-    public function send() {
+    public function send(){
         GLOBAL $USER, $CFG, $OUTPUT;
-        // Terms Agreed So Send On.
+        // Terms Agreed So Send On
         $config = get_config('local_abintegro');
         $baseurl = $config->baseurl;
         $themeid = $config->themeid;
@@ -39,26 +39,20 @@ class connection {
         $paramstrings .= '&EmailAddress='.$USER->email;
         $paramstrings .= '&AuthToken='.$authtoken;
         $paramstrings .= '&TermsAgree=true';
-        $firstname = str_replace(' ', '&nbsp;', $USER->firstname);
-        $firstname = str_replace('?', '', $firstname);
-        $firstname = str_replace('&', '', $firstname);
-        $paramstrings .= '&FirstName='.$firstname;
-        $lastname = str_replace(' ', '&nbsp;', $USER->lastname);
-        $lastname = str_replace('?', '', $lastname);
-        $lastname = str_replace('&', '', $lastname);
-        $paramstrings .= '&LastName='.$lastname;
+        $paramstrings .= '&FirstName='.str_replace(' ','&nbsp;', $USER->firstname);
+        $paramstrings .= '&LastName='.str_replace(' ','&nbsp;', $USER->lastname);
         $paramstrings .= '&ThemeUniqueId='.$themeid;
         $paramstrings .= '&ReturnFormat=LinkOnly';
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($curl, CURLOPT_URL, $baseurl."?".$paramstrings);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,FALSE);
+        curl_setopt($curl,CURLOPT_URL,$baseurl."?".$paramstrings);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($curl);
         curl_close($curl);
-        if(substr($response, 0, 4) == "http") {
-            $url = new \moodle_url($response);
-            redirect($url);
-        } else {
+        if(substr($response,0,4)=="http"){
+        $url = new \moodle_url($response);
+        redirect($url);
+        }else{
             echo $OUTPUT->header();
             echo \html_writer::link($CFG->wwwroot, get_string('error', 'local_abintegro'), array());
             echo $OUTPUT->footer();

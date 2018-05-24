@@ -33,34 +33,34 @@ $PAGE->set_title($strheading);
 $PAGE->set_heading($strheading);
 $system = \context_system::instance();
 $permission = \has_capability('local/abintegro:access', $system, $USER->id);
-if($permission) {
-    $mform = new agreeterms_form();
+if($permission){
+$mform = new agreeterms_form();
     if ($fromform = $mform->get_data()) {
         $recordtoinsert = new \stdClass;
         $recordtoinsert->userid = $USER->id;
         $recordtoinsert->agreed = '1';
-        if($DB->count_records('local_abintegro', array('userid' => $USER->id, 'agreed' => '1')) == 0) {
+        if($DB->count_records('local_abintegro', array('userid' => $USER->id, 'agreed' => '1')) == 0){
             $DB->insert_record('local_abintegro', $recordtoinsert);
         }
         $connection = new connection;
         $connection->send();
     } else {
         $termsagreed = $DB->get_record('local_abintegro', array('userid' => $USER->id, 'agreed' => '1'));
-        if($termsagreed) {
+        if($termsagreed){
             $connection = new connection;
             $connection->send();
-        } else {
+        }else{
             echo $OUTPUT->header();
-            $link = 'https://www.abintegro.com/Terms-And-Conditions';
-            $fallback = \html_writer::link($link, get_string('fallback', 'local_abintegro'));
-            echo \html_writer::tag('iframe', $fallback, array('width' => '100%', 'height' => '500px', 'src' => $link));
-            echo  \html_writer::tag('a', get_string('termsdesc', 'local_abintegro'));
+            $fallback = \html_writer::link('https://www.abintegro.com/Terms-And-Conditions', get_string('fallback', 'local_abintegro'));
+            echo \html_writer::tag('iframe', $fallback, array('width' => '100%', 'height' => '500px', 'src' => 'https://www.abintegro.com/Terms-And-Conditions'));
+            echo  \html_writer::tag('a',get_string('termsdesc','local_abintegro'));
             $mform->display();
             echo $OUTPUT->footer();
         }
     }
-} else {
+}else{
     echo $OUTPUT->header();
     echo get_string('nopermissions', 'local_abintegro');
     echo $OUTPUT->footer();
 }
+?>

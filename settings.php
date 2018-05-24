@@ -25,42 +25,42 @@ if ($hassiteconfig) {
     $settings = new admin_settingpage(
         get_string('pluginname', 'local_abintegro'),
         get_string('pluginname', 'local_abintegro')
-    );
+);
 
-    // Heading.
-    $setting = new admin_setting_heading(
-        'local_abintegro/heading',
-        '', get_string('setting_heading_desc', 'local_abintegro')
-    );
-    $setting->plugin = 'local_abintegro';
-    $settings->add($setting);
-    // Base URL.
-    $setting = new admin_setting_configtext(
-        'local_abintegro/baseurl',
-        get_string('baseurl', 'local_abintegro'),
-        get_string('baseurldesc', 'local_abintegro'),
-        'https://www.abintegro.com/SSO/AuthUser.aspx', PARAM_URL
-    );
-    $setting->plugin = 'local_abintegro';
-    $settings->add($setting);
-    // Secret_key.
-    $setting = new admin_setting_configtext(
-        'local_abintegro/authtoken',
-        get_string('secretkey', 'local_abintegro'),
-        get_string('secretkeydesc', 'local_abintegro'),
-        '', PARAM_TEXT
-    );
-    $setting->plugin = 'local_abintegro';
-    $settings->add($setting);
+// Heading.
+$setting = new admin_setting_heading(
+    'local_abintegro/heading',
+    '', get_string('setting_heading_desc', 'local_abintegro')
+);
+$setting->plugin = 'local_abintegro';
+$settings->add($setting);
+// Base URL.
+$setting = new admin_setting_configtext(
+    'local_abintegro/baseurl',
+    get_string('baseurl', 'local_abintegro'),
+    get_string('baseurldesc', 'local_abintegro'),
+    'https://www.abintegro.com/SSO/AuthUser.aspx', PARAM_URL
+);
+$setting->plugin = 'local_abintegro';
+$settings->add($setting);
+// secret_key.
+$setting = new admin_setting_configtext(
+    'local_abintegro/authtoken',
+    get_string('secretkey', 'local_abintegro'),
+    get_string('secretkeydesc', 'local_abintegro'),
+    '', PARAM_TEXT
+);
+$setting->plugin = 'local_abintegro';
+$settings->add($setting);
 
-    // Auth Salt.
-    $setting = new admin_setting_configtext(
-        'local_abintegro/themeid',
-        get_string('themeid', 'local_abintegro'),
-        get_string('themeiddesc', 'local_abintegro'),
-        '', PARAM_TEXT
-    );
-    $setting->plugin = 'local_abintegro';
-    $settings->add($setting);
-    $ADMIN->add('localplugins', $settings);
+// Auth Salt.
+$setting = new admin_setting_configtext(
+    'local_abintegro/themeid',
+    get_string('themeid', 'local_abintegro'),
+    get_string('themeiddesc', 'local_abintegro'),
+    '', PARAM_TEXT
+);
+$setting->plugin = 'local_abintegro';
+$settings->add($setting);
+$ADMIN->add('localplugins', $settings);
 }
